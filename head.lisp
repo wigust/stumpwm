@@ -70,10 +70,7 @@
 
 (defun make-screen-heads (screen root)
   (declare (ignore screen))
-  ;; Query for whether the server supports RANDR, if so, call the
-  ;; randr version of make-screen-heads.
-  (cond ((xlib:query-extension *display* "RANDR") (make-screen-randr-heads root))
-        ((and (xlib:query-extension *display* "XINERAMA")
+  (cond ((and (xlib:query-extension *display* "XINERAMA")
               (xinerama:xinerama-is-active *display*))
          (mapcar 'screen-info-head
                  (xinerama:xinerama-query-screens *display*)))
